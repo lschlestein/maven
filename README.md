@@ -63,7 +63,123 @@ Essa atualização pode ser feita, clicanco sobre o ícone azul a direita da ima
 ![image](https://github.com/lschlestein/maven/assets/103784532/99c95877-d6a9-4ed5-a073-80479e7ff935)
 
 
-![image](https://github.com/lschlestein/maven/assets/103784532/d1ea62ff-acd3-4785-b912-9d81703ea491)
+Aba do Maven no IntelliJ
+![image](https://github.com/lschlestein/maven/assets/103784532/9d717552-5018-4426-a7ea-3dde1afdf6a1)
+
+Versões (Melhorar)
+Uma dependência pode ser categorizada de duas maneiras:
+SNAPSHOT
+RELEASE
+Quando o projeto está em desenvolvimento geralmente usamos as dependências SNAPSHOT.
+Quando o software está pronto para o lançamento, geralmente criamos uma versão RELEASE .
+Ex.:
+
+```xml
+    <groupId>com.maven.exemaple</groupId>
+    <artifactId>maven-example</artifactId>
+    <version>1.0-SNAPSHOT</version>
+```
+
+### Escopos de Dependências
+
+Cada dependência Maven pode ser categorizada em 6 escopos diferentes.
+*compile:* este é o escopo padrão se nenhum for especificado. As dependências de tempo de compilação estão disponíveis no classpath do projeto em todos os escopos.
+*provided:* Semelhante ao escopo compile, mas indica que o JDK ou o contêiner subjacente fornecerá a dependência no tempo de execução. A dependência estará disponível no momento da compilação, mas não será empacotada no artefato.
+*runtime:* as dependências definidas com este escopo estarão disponíveis apenas em tempo de execução (runtime), mas não em tempo de compilação. Um exemplo de uso: Imagine se você estiver usando o driver MySQL dentro do seu projeto, você pode adicionar a dependência com escopo como tempo de execução, para garantir que a abstração da API JDBC seja usada em vez da API do driver MySQL durante a implementação. Se o código-fonte incluir qualquer classe que faça parte da API JDBC do MySQL, o código não será compilado, pois a dependência não está disponível no momento da compilação.
+*test:* as dependências estão disponíveis apenas no momento da execução dos testes, exemplos típicos incluem JUnit.
+*system:* é semelhante ao escopo provided, mas a única diferença é que precisamos mencionar explicitamente onde a dependência pode ser encontrada no sistema, usando a tag systemPath:
+
+```xml
+<systemPath>${basedir}/lib/some-dependency.jar</systemPath>
+```
+### Repositórios
+
+As dependências são armazenadas em um diretório especial chamado Repositório. Existem basicamente 2 tipos de repositórios:
+Local Repository: Um Repositório local é um diretório na máquina onde o Maven está sendo executado.
+O local padrão para o Repositório Local é ~/.m2 ou C:\Users<user-name>.m2\repository
+Remote Repository: Um Repositório remoto é um site onde podemos baixar dependências Maven. 
+Quando uma dependência é definida dentro do arquivo pom.xml, o Maven primeiro verifica se a dependência já está presente no Repositório Local ou não.
+Se não estiver, ele tenta se conectar ao Repositório Remoto, (Ex: https://repo.maven.org) e tenta baixar as dependências e armazená-las dentro do Repositório Local. 
+
+```xml
+<repositories>
+ <repository>
+  <id>my-internal-site</id>
+  <url>http://myserver/repo</url>
+ </repository>
+</repositories>
+```
+### Ciclo de Vida Da Versão Maven
+Este ciclo de vida é dividido em 3 partes:
+
+ - default
+ - clean
+ - site
+
+Cada ciclo de vida é independente um do outro e podem ser executados juntos.
+
+O ciclo de vida padrão é dividido em diferentes fases, como a seguir:
+
+*validate:* verifica se o arquivo pom.xml é válido ou não
+*compile:* compila o código-fonte dentro do projeto
+*test:* executa testes de unidade dentro do projeto
+*package:* empacota o código-fonte em um artefato (ZIP, JAR, WAR ou EAR)
+*integration-test:* executa testes marcados como testes de integração
+*verify:* verifica se o pacote criado é válido ou não.
+*install:* instala o pacote criado em nosso Repositório Local
+*deploy:* implanta o pacote criado no Repositório Remoto
+
+O ciclo de vida clean é principalmente responsável por limpar o .class e metadados gerados pelas fases de compilação.
+A fase do ciclo de vida do site é responsável por gerar a documentação Java.
+
+### Plugins
+Compilação
+
+Para poder executar essas fases do ciclo de vida, o Maven nos fornece plugins para realizar cada tarefa.
+Cada plugin está associado a um objetivo específico.
+
+Plugin de Compilação Maven
+
+O plug-in de compilação Maven é responsável por compilar os arquivos Java nos arquivos .class. É equivalente a executar javac.
+Este plugin habilita a fase de compilação do ciclo de vida padrão.
+
+Maven Surefire
+
+Esse plugin gera relatórios de texto e XML na pasta target/surefire-reports.
+Também utilizado para execução de testes.
+
+Por padrão, esse plugin executará todos os testes, se necessário, alguns poderão ser excluídos nessa fase:
+
+Instalação
+
+le é usado para empacotar o código-fonte em um artefato de nossa escolha como um JAR e instalá-lo no Repositório local que é a pasta /.m2/repository.
+
+A fase de instalação inclui também as fases anteriores do ciclo de vida:
+
+valida pom.xml (validate)
+compila código fonte (compile)
+executa testes (test)
+empacota código-fonte em JAR (package)
+instala o JAR no repositório local (install)
+
+Maven Clean
+
+Ao executar as fases do ciclo de vida acima, os arquivos gerados são armazenados em uma pasta chamada destino.
+Ao construir nosso código-fonte, precisamos começar do zero para que não haja inconsistências nos arquivos de classe ou JAR gerados.
+Por esta razão, temos a fase de limpeza, em que todo o conteúdo da pasta de destino será removido. 
+
+Existem uma diversidade de plugins que podem ser utilizados em um projeto com o Maven, os quais podem ser encontrados aqui:
+[Pulgins](maven.apache.org/plugins/index.html)
+
+Criação de um projeto Maven no IntelliJ
+
+![image](https://github.com/lschlestein/maven/assets/103784532/ab19b221-2c54-40cf-9f41-bd0699e10988)
+
+![image](https://github.com/lschlestein/maven/assets/103784532/048e56ed-3b3b-4d55-bad2-f098f9d3e939)
+
+
+
+
 
 
 
