@@ -3,6 +3,7 @@
 ### O que é Maven
 O Apache Maven é uma ferramenta de gerenciamento de projetos usada para gerenciar projetos que são desenvolvidos usando principalmente linguagens JVM como Java.
 Ele é baseado no conceito de Project Object Model (POM).
+
 As principais tarefas e praticidades dessa ferramenta de gerenciamento de projetos incluem:
 - Construir o Código Fonte
 - Testar de código-fonte
