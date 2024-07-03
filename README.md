@@ -83,11 +83,11 @@ Ex.:
 ### Escopos de Dependências
 
 Cada dependência Maven pode ser categorizada em 6 escopos diferentes.
-*compile:* este é o escopo padrão se nenhum for especificado. As dependências de tempo de compilação estão disponíveis no classpath do projeto em todos os escopos.
-*provided:* Semelhante ao escopo compile, mas indica que o JDK ou o contêiner subjacente fornecerá a dependência no tempo de execução. A dependência estará disponível no momento da compilação, mas não será empacotada no artefato.
-*runtime:* as dependências definidas com este escopo estarão disponíveis apenas em tempo de execução (runtime), mas não em tempo de compilação. Um exemplo de uso: Imagine se você estiver usando o driver MySQL dentro do seu projeto, você pode adicionar a dependência com escopo como tempo de execução, para garantir que a abstração da API JDBC seja usada em vez da API do driver MySQL durante a implementação. Se o código-fonte incluir qualquer classe que faça parte da API JDBC do MySQL, o código não será compilado, pois a dependência não está disponível no momento da compilação.
-*test:* as dependências estão disponíveis apenas no momento da execução dos testes, exemplos típicos incluem JUnit.
-*system:* é semelhante ao escopo provided, mas a única diferença é que precisamos mencionar explicitamente onde a dependência pode ser encontrada no sistema, usando a tag systemPath:
+- *compile:* este é o escopo padrão se nenhum for especificado. As dependências de tempo de compilação estão disponíveis no classpath do projeto em todos os escopos.
+- *provided:* Semelhante ao escopo compile, mas indica que o JDK ou o contêiner subjacente fornecerá a dependência no tempo de execução. A dependência estará disponível no momento da compilação, mas não será empacotada no artefato.
+- *runtime:* as dependências definidas com este escopo estarão disponíveis apenas em tempo de execução (runtime), mas não em tempo de compilação. Um exemplo de uso: Imagine se você estiver usando o driver MySQL dentro do seu projeto, você pode adicionar a dependência com escopo como tempo de execução, para garantir que a abstração da API JDBC seja usada em vez da API do driver MySQL durante a implementação. Se o código-fonte incluir qualquer classe que faça parte da API JDBC do MySQL, o código não será compilado, pois a dependência não está disponível no momento da compilação.
+- *test:* as dependências estão disponíveis apenas no momento da execução dos testes, exemplos típicos incluem JUnit.
+- *system:* é semelhante ao escopo provided, mas a única diferença é que precisamos mencionar explicitamente onde a dependência pode ser encontrada no sistema, usando a tag systemPath:
 
 ```xml
 <systemPath>${basedir}/lib/some-dependency.jar</systemPath>
@@ -120,14 +120,14 @@ Cada ciclo de vida é independente um do outro e podem ser executados juntos.
 
 O ciclo de vida padrão é dividido em diferentes fases, como a seguir:
 
-*validate:* verifica se o arquivo pom.xml é válido ou não
-*compile:* compila o código-fonte dentro do projeto
-*test:* executa testes de unidade dentro do projeto
-*package:* empacota o código-fonte em um artefato (ZIP, JAR, WAR ou EAR)
-*integration-test:* executa testes marcados como testes de integração
-*verify:* verifica se o pacote criado é válido ou não.
-*install:* instala o pacote criado em nosso Repositório Local
-*deploy:* implanta o pacote criado no Repositório Remoto
+- *validate:* verifica se o arquivo pom.xml é válido ou não
+- *compile:* compila o código-fonte dentro do projeto
+- *test:* executa testes de unidade dentro do projeto
+- *package:* empacota o código-fonte em um artefato (ZIP, JAR, WAR ou EAR)
+- *integration-test:* executa testes marcados como testes de integração
+- *verify:* verifica se o pacote criado é válido ou não.
+- *install:* instala o pacote criado em nosso Repositório Local
+- *deploy:* implanta o pacote criado no Repositório Remoto
 
 O ciclo de vida clean é principalmente responsável por limpar o .class e metadados gerados pelas fases de compilação.
 A fase do ciclo de vida do site é responsável por gerar a documentação Java.
@@ -177,7 +177,50 @@ Criação de um projeto Maven no IntelliJ
 
 ![image](https://github.com/lschlestein/maven/assets/103784532/048e56ed-3b3b-4d55-bad2-f098f9d3e939)
 
+Após, rode o maven com os ciclos clean e install:
 
+```terminal
+"C:\Program Files\Java\jdk-17\bin\java.exe" -Dmaven.multiModuleProjectDirectory=C:\Users\Lucas\eclipse-workspace\maven-example -Djansi.passthrough=true "-Dmaven.home=C:\Program Files\JetBrains\IntelliJ IDEA 2024.1.1\plugins\maven\lib\maven3" "-Dclassworlds.conf=C:\Program Files\JetBrains\IntelliJ IDEA 2024.1.1\plugins\maven\lib\maven3\bin\m2.conf" "-Dmaven.ext.class.path=C:\Program Files\JetBrains\IntelliJ IDEA 2024.1.1\plugins\maven\lib\maven-event-listener.jar" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.1.1\lib\idea_rt.jar=50760:C:\Program Files\JetBrains\IntelliJ IDEA 2024.1.1\bin" -Dfile.encoding=UTF-8 -classpath "C:\Program Files\JetBrains\IntelliJ IDEA 2024.1.1\plugins\maven\lib\maven3\boot\plexus-classworlds-2.7.0.jar;C:\Program Files\JetBrains\IntelliJ IDEA 2024.1.1\plugins\maven\lib\maven3\boot\plexus-classworlds.license" org.codehaus.classworlds.Launcher -Didea.version=2024.1.2 clean install
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.maven.exemaple:maven-example >------------------
+[INFO] Building maven-example 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ maven-example ---
+[INFO] Deleting C:\Users\Lucas\eclipse-workspace\maven-example\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ maven-example ---
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ maven-example ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 1 source file with javac [debug target 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ maven-example ---
+[INFO] skip non existing resourceDirectory C:\Users\Lucas\eclipse-workspace\maven-example\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ maven-example ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] 
+[INFO] --- surefire:3.2.2:test (default-test) @ maven-example ---
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ maven-example ---
+[INFO] Building jar: C:\Users\Lucas\eclipse-workspace\maven-example\target\maven-example-1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- install:3.1.1:install (default-install) @ maven-example ---
+[INFO] Installing C:\Users\Lucas\eclipse-workspace\maven-example\pom.xml to C:\Users\Lucas\.m2\repository\com\maven\exemaple\maven-example\1.0-SNAPSHOT\maven-example-1.0-SNAPSHOT.pom
+[INFO] Installing C:\Users\Lucas\eclipse-workspace\maven-example\target\maven-example-1.0-SNAPSHOT.jar to C:\Users\Lucas\.m2\repository\com\maven\exemaple\maven-example\1.0-SNAPSHOT\maven-example-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.340 s
+[INFO] Finished at: 2024-07-03T08:07:52-03:00
+[INFO] ------------------------------------------------------------------------
+
+Process finished with exit code 0
+```
 
 
 
