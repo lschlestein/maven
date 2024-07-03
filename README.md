@@ -198,7 +198,7 @@ Por padrão, esse plugin executará todos os testes, se necessário, alguns pode
 Para maiores informações: [Apache Maven Plugins](https://maven.apache.org/plugins/maven-compiler-plugin/)
 
 Apache Maven Assembly Plugin
-Plugin utilizado para fazer o empacotamento de nossa aplicação em .jar.
+Plugin utilizado para fazer o empacotamento de nossa aplicação em .jar. Com esse plugin configurado, nosso jar será empacotado com todos as dependências (jar) adicionadas em nosso projeto, em um único jar.
 
 ```xml
 <build>
@@ -342,11 +342,87 @@ java -jar nome_do_arquivo_jar.jar
 
 PS C:\users\maven-example\target> java -jar .\maven-example-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
+Para que nossa aplicação funcione com essa linha de comando, precisamos tornar nosso jar executável, configurando o Maven Assembly Plugin como segue:
+```xml
+<project>
+  [...]
+  <build>
+    [...]
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.7.1</version>
+        <configuration>
+          [...]
+          <archive>
+            <manifest>
+              <mainClass>org.sample.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+        [...]
+      </plugin>
+      [...]
+</project>
+```
+
+Outra forma de rodar o jar
+Para essa segunda opção, devemos utilizar a configuração do Maven Assembly Plugin como segue:
+```xml
+<project>
+  [...]
+  <build>
+    [...]
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.7.1</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+            <phase>package</phase> <!-- bind to the packaging phase -->
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      [...]
+</project>
+```
+
+Como executar uma aplicação maven Via terminal:
+
+java -cp .\target\maven-example_-1.0-SNAPSHOT.jar com.maven.example.App
+
+- java:
+Invoca a Máquina Virtual Java (JVM) para executar nosso programa Java.
+
+- -cp:
+Esse é o argumento que especifica o "classpath". O classpath é uma lista de locais onde a JVM deve procurar classes e pacotes quando um programa é executado. Pode incluir diretórios, arquivos JAR e até URLs.
+
+.\target\maven-example-1.0-SNAPSHOT.jar:
+
+Este é o caminho para o arquivo JAR que contém as classes compiladasde nosso projeto. Onde:
+.\target: Especifica o diretório target no diretório atual (.\), que é o diretório onde o Maven coloca os arquivos compilados e os artefatos de build.
+maven-example-1.0-SNAPSHOT.jar: Esse é o nome do arquivo JAR gerado pelo Maven. Nota-se que a versão que especificamos no arquivo pom.xml, é a que está nomeando nosso jar.
+
+com.maven.example.App:
+
+Este é o nome completo da classe principal que desejamos executar. É composto pelo pacote (com.maven.example) e pelo nome da classe (App). O caminho completo para a classe App onde fica o método main de nossa aplicação.
 
 Referências:
 
 [Maven Complete Tutorial for Beginners](https://dev.to/saiupadhyayula/maven-complete-tutorial-for-beginners-1jek)
-
+[Maven Assembly Plugin](https://maven.apache.org/plugins/maven-assembly-plugin/usage.html)
+[Maven Repository](https://mvnrepository.com/)
+[Apache Commons Word Utils](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/text/WordUtils.html)
+[JUnit](https://junit.org/junit5/)
 
 
 
