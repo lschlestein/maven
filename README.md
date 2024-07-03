@@ -281,7 +281,31 @@ Após, rode o maven com os ciclos clean e install:
 
 Process finished with exit code 0
 ```
+Dependências utilizadas neste exemplo:
+```xml
+<dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.12.0</version>
+            <scope>compile</scope>
+        </dependency>
 
+       <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.14.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+     <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.10.3</version>
+            <scope>test</scope>
+        </dependency>
+</dependencies>
+```
 
 
 
