@@ -5,6 +5,20 @@ Artifact: nome do jar.
 com.example.java (java.example.com)
 Version: versão do artefato major.minor.path-SNAPSHOT
 SNAPSHOT em desenvolvimento, não estavel (O maven pode verificar por atualizações devido a essa tag)
+pom.xml
+namespaces (Importa para tornar possível a utilização de suas tags)
+Model version 4.0.0 não há necessidade de mexer
+
+Maven coordinates
+<groupID></groupdID>
+<artifactId></artifactId>
+<version></version>
+
+configurar versão do Java
+<properties>
+<maven.compiler.source>17
+<maven.compiler.target>17
+</properties>
 
 ### O que é Maven
 O Apache Maven é uma ferramenta de gerenciamento de projetos usada para gerenciar projetos que são desenvolvidos usando principalmente linguagens JVM como Java.
@@ -59,6 +73,10 @@ Explorando o arquivo POM.xml
 project é a tag de nível superior de nosso arquivo pom.xml, que encapsula todas as informações relacionadas ao nosso projeto Maven.
 
 modelVersion representa qual versão do POM você está usando. O modelVersion para Maven 3 é sempre 4.0. Isso nunca mudará, a menos que você esteja usando outra versão principal do Maven.
+
+groupId Identificador único do projeto Maven
+artifactId Nome do artefato em desenvolvimento (.jar)
+version Versão que está sendo denvolvida (SNAPSHOT para versão em desenvolvimento).
 
 ### Adicionando Dependências ao nosso projeto
 
