@@ -52,17 +52,14 @@ Explorando o arquivo POM.xml
 project: é a tag de nível superior de nosso arquivo pom.xml, que encapsula todas as informações relacionadas ao nosso projeto Maven.
 modelVersion: representa qual versão do POM você está usando. O modelVersion para Maven 3 é sempre 4.0. Isso nunca mudará, a menos que você esteja usando outra versão principal do Maven.
 
-groupId: Identificador único do projeto Maven
-
-artifactId: Nome do artefato em desenvolvimento (.jar)
-
-version: Versão que está sendo denvolvida (SNAPSHOT para versão em desenvolvimento).
-
+- groupId: Identificador único do projeto Maven
+- artifactId: Nome do artefato em desenvolvimento (.jar)
+- version: Versão que está sendo denvolvida (SNAPSHOT para versão em desenvolvimento).
+  
 Esse conjunto de informações também é conhecido como Maven coordinates
 
-maven.compiler.source: indica ao compilador que será utilizada a versão 17 do JDK nesse projeto
-
-maven.compiler.target: indica ao compilador que será utilizada a versão 17 do JDK para montar nosso .jar
+- maven.compiler.source: indica ao compilador que será utilizada a versão 17 do JDK nesse projeto
+- maven.compiler.target: indica ao compilador que será utilizada a versão 17 do JDK para montar nosso .jar
 
 ### Adicionando Dependências ao nosso projeto
 
