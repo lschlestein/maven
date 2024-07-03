@@ -58,7 +58,8 @@ modelVersion representa qual versão do POM você está usando. O modelVersion p
 
 Adicionando o JUnit em nosso projeto.
 Nota-se que a versão ficou destacada em vermelho, isso porque, precisamos depois de editar o arquivo POM.xml, fazer com o que o Maven adicione efetivamente essas dependencias ao nosso projeto.
-Essa atualização pode ser feita, clicanco sobre o ícone azul a direita da imagem, ou também através da aba Maven, a direita do IntelliJ
+Essa atualização pode ser feita, clicanco sobre o ícone azul a direita da imagem, ou também através da aba Maven, a direita do IntelliJ.
+Vale ressaltar que tags groupId, artifactId e principalmente version, são as referências para que o Maven possa baixar automaticamente essas dependências para o nosso projeto.
 
 ![image](https://github.com/lschlestein/maven/assets/103784532/99c95877-d6a9-4ed5-a073-80479e7ff935)
 
@@ -106,9 +107,20 @@ Se não estiver, ele tenta se conectar ao Repositório Remoto, (Ex: https://repo
  <repository>
   <id>my-internal-site</id>
   <url>http://myserver/repo</url>
+  <snapshots>
+      <enabled>true</enabled>
+      <updatePolicy>always</updatePolicy>
+  </snapshots>
  </repository>
 </repositories>
 ```
+
+A tag updatePolicy, pode ser:
+- always: o frameworks sempre fará a verificação se há alguma versão mais recente.
+- daily: essa é a configuração padrão, assim as versões serão atualizadas diariamente, na primeira execução do dia.
+- interval:MMM: verifica a cada MMM minutos
+- never: nunca verifica por atualizações
+  
 ### Ciclo de Vida Da Versão Maven
 Este ciclo de vida é dividido em 3 partes:
 
@@ -131,6 +143,7 @@ O ciclo de vida padrão é dividido em diferentes fases, como a seguir:
 
 O ciclo de vida clean é principalmente responsável por limpar o .class e metadados gerados pelas fases de compilação.
 A fase do ciclo de vida do site é responsável por gerar a documentação Java.
+Os 3 ciclos, quando executados, são quase sempre auxiliados por outros ciclos. Para maiores detalhes verifique a documentação do Maven.
 
 ### Plugins
 Compilação
@@ -142,6 +155,29 @@ Plugin de Compilação Maven
 
 O plug-in de compilação Maven é responsável por compilar os arquivos Java nos arquivos .class. É equivalente a executar javac.
 Este plugin habilita a fase de compilação do ciclo de vida padrão.
+
+Você pode adicionar o plugin de compilação conforme segue:
+```xml
+<project>
+  ...
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.13.0</version>
+          <configuration>
+            <!-- put your configurations here -->
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  ...
+</project>
+```
+Para maiores informações: [Apache Maven Plugins](https://maven.apache.org/plugins/maven-compiler-plugin/)
 
 Maven Surefire
 
@@ -169,7 +205,7 @@ Ao construir nosso código-fonte, precisamos começar do zero para que não haja
 Por esta razão, temos a fase de limpeza, em que todo o conteúdo da pasta de destino será removido. 
 
 Existem uma diversidade de plugins que podem ser utilizados em um projeto com o Maven, os quais podem ser encontrados aqui:
-[Pulgins](maven.apache.org/plugins/index.html)
+[Plugins](maven.apache.org/plugins/index.html)
 
 Criação de um projeto Maven no IntelliJ
 
