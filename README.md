@@ -53,11 +53,15 @@ project: é a tag de nível superior de nosso arquivo pom.xml, que encapsula tod
 modelVersion: representa qual versão do POM você está usando. O modelVersion para Maven 3 é sempre 4.0. Isso nunca mudará, a menos que você esteja usando outra versão principal do Maven.
 
 groupId: Identificador único do projeto Maven
+
 artifactId: Nome do artefato em desenvolvimento (.jar)
+
 version: Versão que está sendo denvolvida (SNAPSHOT para versão em desenvolvimento).
+
 Esse conjunto de informações também é conhecido como Maven coordinates
 
 maven.compiler.source: indica ao compilador que será utilizada a versão 17 do JDK nesse projeto
+
 maven.compiler.target: indica ao compilador que será utilizada a versão 17 do JDK para montar nosso .jar
 
 ### Adicionando Dependências ao nosso projeto
@@ -73,6 +77,7 @@ Também para exemplo adicionaremos a biblioteca Apache Commons Text. No final de
 
 
 Aba do Maven no IntelliJ
+
 ![image](https://github.com/lschlestein/maven/assets/103784532/9d717552-5018-4426-a7ea-3dde1afdf6a1)
 
 Versões
@@ -105,7 +110,8 @@ Cada dependência Maven pode ser categorizada em 6 escopos diferentes.
 
 As dependências são armazenadas em um diretório especial chamado Repositório. Existem basicamente 2 tipos de repositórios:
 Local Repository: Um Repositório local é um diretório na máquina onde o Maven está sendo executado.
-O local padrão para o Repositório Local é ~/.m2 ou C:\Users<user-name>.m2\repository
+O local padrão para o Repositório Local é ~/.m2 ou C:\Users<user-name>.m2\repository.
+É importante ressaltar, que sempre o framework fará a busca pela dependência localmente, e caso não a encontronte, ele buscará a mesma do repositório central.
 
 Remote Repository: Um Repositório remoto é um site onde podemos baixar dependências Maven. 
 Quando uma dependência é definida dentro do arquivo pom.xml, o Maven primeiro verifica se a dependência já está presente no Repositório Local ou não.
@@ -295,7 +301,16 @@ Após, rode o maven com os ciclos clean e install:
 
 Process finished with exit code 0
 ```
-Dependências utilizadas neste exemplo:
+Nota-se que primeiramente o Maven limpará todo o conteúdo da pasta target e em seguida executa as seguintes ações:
+default-resources:
+default-compile:
+default-testResources:
+default-testCompile:
+default-test:
+default-jar:
+default-install
+
+### Dependências utilizadas neste exemplo:
 ```xml
 <dependencies>
         <dependency>
@@ -320,8 +335,17 @@ Dependências utilizadas neste exemplo:
         </dependency>
 </dependencies>
 ```
+### Rodando um jar
+Para rodar nosso projeto Maven recém compilado bastar executar a seguinte linha de comando:
+```cmd
+java -jar nome_do_arquivo_jar.jar
 
+PS C:\users\maven-example\target> java -jar .\maven-example-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
 
+Referências:
+
+[Maven Complete Tutorial for Beginners](https://dev.to/saiupadhyayula/maven-complete-tutorial-for-beginners-1jek)
 
 
 
