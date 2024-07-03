@@ -1,5 +1,11 @@
 # Maven
 
+Group Id: Identificador do projeto único, segue as regras de pacotes do java (com o domínio ao contrário)
+Artifact: nome do jar.
+com.example.java (java.example.com)
+Version: versão do artefato major.minor.path-SNAPSHOT
+SNAPSHOT em desenvolvimento, não estavel (O maven pode verificar por atualizações devido a essa tag)
+
 ### O que é Maven
 O Apache Maven é uma ferramenta de gerenciamento de projetos usada para gerenciar projetos que são desenvolvidos usando principalmente linguagens JVM como Java.
 Ele é baseado no conceito de Project Object Model (POM).
