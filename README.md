@@ -1,34 +1,5 @@
 # Maven
 
-Group Id: Identificador do projeto único, segue as regras de pacotes do java (com o domínio ao contrário)
-Artifact: nome do jar.
-com.example.java (java.example.com)
-Version: versão do artefato major.minor.path-SNAPSHOT
-SNAPSHOT em desenvolvimento, não estavel (O maven pode verificar por atualizações devido a essa tag)
-pom.xml
-namespaces (Importa para tornar possível a utilização de suas tags)
-Model version 4.0.0 não há necessidade de mexer
-
-Maven coordinates
-<groupID></groupdID>
-<artifactId></artifactId>
-<version></version>
-
-configurar versão do Java
-<properties>
-<maven.compiler.source>17
-<maven.compiler.target>17
-</properties>
-
-<scope>compile</scope>
-Dependencias transitivas
-
-Empacotar o projeto
-
-Disponibiliza a dependência para todos os escopos.
-Test só escopo test
-package (valida, compila, testa, empacota)
-
 ### O que é Maven
 O Apache Maven é uma ferramenta de gerenciamento de projetos usada para gerenciar projetos que são desenvolvidos usando principalmente linguagens JVM como Java.
 Ele é baseado no conceito de Project Object Model (POM).
@@ -84,6 +55,7 @@ modelVersion: representa qual versão do POM você está usando. O modelVersion 
 groupId: Identificador único do projeto Maven
 artifactId: Nome do artefato em desenvolvimento (.jar)
 version: Versão que está sendo denvolvida (SNAPSHOT para versão em desenvolvimento).
+Esse conjunto de informações também é conhecido como Maven coordinates
 
 maven.compiler.source: indica ao compilador que será utilizada a versão 17 do JDK nesse projeto
 maven.compiler.target: indica ao compilador que será utilizada a versão 17 do JDK para montar nosso .jar
@@ -94,6 +66,8 @@ Adicionando o JUnit em nosso projeto.
 Nota-se que a versão ficou destacada em vermelho, isso porque, precisamos depois de editar o arquivo POM.xml, fazer com o que o Maven adicione efetivamente essas dependencias ao nosso projeto.
 Essa atualização pode ser feita, clicanco sobre o ícone azul a direita da imagem, ou também através da aba Maven, a direita do IntelliJ.
 Vale ressaltar que tags groupId, artifactId e principalmente version, são as referências para que o Maven possa baixar automaticamente essas dependências para o nosso projeto.
+
+Também para exemplo adicionaremos a biblioteca Apache Commons Text. No final desse arquivo estão disponíveis as bibliotecas utilizadas.
 
 ![image](https://github.com/lschlestein/maven/assets/103784532/99c95877-d6a9-4ed5-a073-80479e7ff935)
 
@@ -174,7 +148,7 @@ O ciclo de vida padrão é dividido em diferentes fases, como a seguir:
 - *integration-test:* executa testes marcados como testes de integração
 - *verify:* verifica se o pacote criado é válido ou não.
 - *install:* instala o pacote criado em nosso Repositório Local
-- *site:* gera o javadoc
+- *site:* gera a documentação do projeto
 - *deploy:* implanta o pacote criado no Repositório Remoto
 
 O ciclo de vida clean é principalmente responsável por limpar o .class e metadados gerados pelas fases de compilação.
@@ -187,7 +161,7 @@ Compilação
 Para poder executar essas fases do ciclo de vida, o Maven nos fornece plugins para realizar cada tarefa.
 Cada plugin está associado a um objetivo específico.
 
-Plugin de Compilação Maven
+Plugin de Compilação Maven (Default)
 
 O plug-in de compilação Maven é responsável por compilar os arquivos Java nos arquivos .class. É equivalente a executar javac.
 Este plugin habilita a fase de compilação do ciclo de vida padrão.
@@ -219,6 +193,7 @@ Para maiores informações: [Apache Maven Plugins](https://maven.apache.org/plug
 
 Apache Maven Assembly Plugin
 Plugin utilizado para fazer o empacotamento de nossa aplicação em .jar.
+
 ```xml
 <build>
         <plugins>
