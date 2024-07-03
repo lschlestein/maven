@@ -20,6 +20,15 @@ configurar versão do Java
 <maven.compiler.target>17
 </properties>
 
+<scope>compile</scope>
+Dependencias transitivas
+
+Empacotar o projeto
+
+Disponibiliza a dependência para todos os escopos.
+Test só escopo test
+package (valida, compila, testa, empacota)
+
 ### O que é Maven
 O Apache Maven é uma ferramenta de gerenciamento de projetos usada para gerenciar projetos que são desenvolvidos usando principalmente linguagens JVM como Java.
 Ele é baseado no conceito de Project Object Model (POM).
@@ -69,14 +78,15 @@ Explorando o arquivo POM.xml
 
 </project>
 ```
+project: é a tag de nível superior de nosso arquivo pom.xml, que encapsula todas as informações relacionadas ao nosso projeto Maven.
+modelVersion: representa qual versão do POM você está usando. O modelVersion para Maven 3 é sempre 4.0. Isso nunca mudará, a menos que você esteja usando outra versão principal do Maven.
 
-project é a tag de nível superior de nosso arquivo pom.xml, que encapsula todas as informações relacionadas ao nosso projeto Maven.
+groupId: Identificador único do projeto Maven
+artifactId: Nome do artefato em desenvolvimento (.jar)
+version: Versão que está sendo denvolvida (SNAPSHOT para versão em desenvolvimento).
 
-modelVersion representa qual versão do POM você está usando. O modelVersion para Maven 3 é sempre 4.0. Isso nunca mudará, a menos que você esteja usando outra versão principal do Maven.
-
-groupId Identificador único do projeto Maven
-artifactId Nome do artefato em desenvolvimento (.jar)
-version Versão que está sendo denvolvida (SNAPSHOT para versão em desenvolvimento).
+maven.compiler.source: indica ao compilador que será utilizada a versão 17 do JDK nesse projeto
+maven.compiler.target: indica ao compilador que será utilizada a versão 17 do JDK para montar nosso .jar
 
 ### Adicionando Dependências ao nosso projeto
 
@@ -91,11 +101,11 @@ Vale ressaltar que tags groupId, artifactId e principalmente version, são as re
 Aba do Maven no IntelliJ
 ![image](https://github.com/lschlestein/maven/assets/103784532/9d717552-5018-4426-a7ea-3dde1afdf6a1)
 
-Versões (Melhorar)
+Versões
 Uma dependência pode ser categorizada de duas maneiras:
 SNAPSHOT
 RELEASE
-Quando o projeto está em desenvolvimento geralmente usamos as dependências SNAPSHOT.
+Quando o projeto está em desenvolvimento geralmente usamos as dependências SNAPSHOT. O Maven detecta que essa ainda é uma versão em desenvolvimento, e por essa tag ele poderá buscar por novas versões das dependências em nosso projeto, enquanto ele ainda esteja em desenvolvimento.
 Quando o software está pronto para o lançamento, geralmente criamos uma versão RELEASE .
 Ex.:
 
@@ -122,6 +132,7 @@ Cada dependência Maven pode ser categorizada em 6 escopos diferentes.
 As dependências são armazenadas em um diretório especial chamado Repositório. Existem basicamente 2 tipos de repositórios:
 Local Repository: Um Repositório local é um diretório na máquina onde o Maven está sendo executado.
 O local padrão para o Repositório Local é ~/.m2 ou C:\Users<user-name>.m2\repository
+
 Remote Repository: Um Repositório remoto é um site onde podemos baixar dependências Maven. 
 Quando uma dependência é definida dentro do arquivo pom.xml, o Maven primeiro verifica se a dependência já está presente no Repositório Local ou não.
 Se não estiver, ele tenta se conectar ao Repositório Remoto, (Ex: https://repo.maven.org) e tenta baixar as dependências e armazená-las dentro do Repositório Local. 
@@ -163,6 +174,7 @@ O ciclo de vida padrão é dividido em diferentes fases, como a seguir:
 - *integration-test:* executa testes marcados como testes de integração
 - *verify:* verifica se o pacote criado é válido ou não.
 - *install:* instala o pacote criado em nosso Repositório Local
+- *site:* gera o javadoc
 - *deploy:* implanta o pacote criado no Repositório Remoto
 
 O ciclo de vida clean é principalmente responsável por limpar o .class e metadados gerados pelas fases de compilação.
@@ -201,18 +213,45 @@ Você pode adicionar o plugin de compilação conforme segue:
   ...
 </project>
 ```
-Para maiores informações: [Apache Maven Plugins](https://maven.apache.org/plugins/maven-compiler-plugin/)
-
-Maven Surefire
-
-Esse plugin gera relatórios de texto e XML na pasta target/surefire-reports.
-Também utilizado para execução de testes.
-
 Por padrão, esse plugin executará todos os testes, se necessário, alguns poderão ser excluídos nessa fase:
 
-Instalação
+Para maiores informações: [Apache Maven Plugins](https://maven.apache.org/plugins/maven-compiler-plugin/)
 
-le é usado para empacotar o código-fonte em um artefato de nossa escolha como um JAR e instalá-lo no Repositório local que é a pasta /.m2/repository.
+Apache Maven Assembly Plugin
+Plugin utilizado para fazer o empacotamento de nossa aplicação em .jar.
+```xml
+<build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.7.1</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.maven.example.App</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+```
+[Maven Assembly Plugin](https://maven.apache.org/plugins/maven-assembly-plugin/usage.html)
+
+Instalação (Install)
+
+Ele é usado para empacotar o código-fonte em um artefato de nossa escolha como um JAR e instalá-lo no Repositório local que é a pasta /.m2/repository.
 
 A fase de instalação inclui também as fases anteriores do ciclo de vida:
 
