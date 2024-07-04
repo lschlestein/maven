@@ -406,14 +406,13 @@ Invoca a Máquina Virtual Java (JVM) para executar nosso programa Java.
 - -cp:
 Esse é o argumento que especifica o "classpath". O classpath é uma lista de locais onde a JVM deve procurar classes e pacotes quando um programa é executado. Pode incluir diretórios, arquivos JAR e até URLs.
 
-.\target\maven-example-1.0-SNAPSHOT.jar:
-
+- .\target\maven-example-1.0-SNAPSHOT.jar:
 Este é o caminho para o arquivo JAR que contém as classes compiladasde nosso projeto. Onde:
+
 .\target: Especifica o diretório target no diretório atual (.\), que é o diretório onde o Maven coloca os arquivos compilados e os artefatos de build.
 maven-example-1.0-SNAPSHOT.jar: Esse é o nome do arquivo JAR gerado pelo Maven. Nota-se que a versão que especificamos no arquivo pom.xml, é a que está nomeando nosso jar.
 
-com.maven.example.App:
-
+- com.maven.example.App:
 Este é o nome completo da classe principal que desejamos executar. É composto pelo pacote (com.maven.example) e pelo nome da classe (App). O caminho completo para a classe App onde fica o método main de nossa aplicação.
 
 Referências:
