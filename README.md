@@ -1,5 +1,8 @@
 # Maven
 
+## Introdução
+Maven é uma ferramenta de automação de compilação e gerenciamento de dependências para projetos Java. Este guia foca na utilização do Maven integrado com a IDE IntelliJ IDEA.
+
 ### O que é Maven
 O Apache Maven é uma ferramenta de gerenciamento de projetos usada para gerenciar projetos que são desenvolvidos usando principalmente linguagens JVM como Java.
 Ele é baseado no conceito de Project Object Model (POM).
@@ -19,7 +22,20 @@ Exemplo de um projeto Maven
 
 ### Estrutura de um projeto Maven
 
-![image](https://github.com/lschlestein/maven/assets/103784532/4323f47e-363a-470d-82de-1f4bb6973a14)
+```
+project-root/
+|-- src/
+| |-- main/
+| | |-- java/
+| | | |-- com.maven.example/
+| | |-- resources/
+| |-- test/
+| |-- java/
+| |-- resources/
+|-- target/
+|-- pom.xml
+```
+
 * A pasta src é a raiz do código-fonte e dos testes de nosso aplicativo. Então, temos as seguintes subpastas:
   * A pasta src/main/java contém o código-fonte java, do aplicativo
   * No src/main/resources estão os arquivos utilizados no projeto (ex.: Arquivos de propriedade, demais XML, CSV etc.). Caso se trate de um aplicativo, recursos estáticos também estarão nesta pasta.
