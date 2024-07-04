@@ -449,6 +449,7 @@ Referências:
 [Apache Commons Word Utils](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/text/WordUtils.html)
 
 [JUnit](https://junit.org/junit5/)
+
 [How to Create an Executable JAR with Maven](https://www.baeldung.com/executable-jar-with-maven)
 
 
