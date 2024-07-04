@@ -66,7 +66,7 @@ Esse conjunto de informações também é conhecido como Maven coordinates
 
 Adicionando o JUnit em nosso projeto.
 Nota-se que a versão ficou destacada em vermelho, isso porque, precisamos depois de editar o arquivo POM.xml, fazer com o que o Maven adicione efetivamente essas dependencias ao nosso projeto.
-Essa atualização pode ser feita, clicanco sobre o ícone azul a direita da imagem, ou também através da aba Maven, a direita do IntelliJ.
+Essa atualização pode ser feita, clicando sobre o ícone azul a direita da imagem, ou também através da aba Maven, a direita do IntelliJ.
 Vale ressaltar que tags groupId, artifactId e principalmente version, são as referências para que o Maven possa baixar automaticamente essas dependências para o nosso projeto.
 
 Também para exemplo adicionaremos a biblioteca Apache Commons Text. No final desse arquivo estão disponíveis as bibliotecas utilizadas.
@@ -79,9 +79,9 @@ Aba do Maven no IntelliJ
 ![image](https://github.com/lschlestein/maven/assets/103784532/9d717552-5018-4426-a7ea-3dde1afdf6a1)
 
 Versões
-Uma dependência pode ser categorizada de duas maneiras:
-SNAPSHOT
-RELEASE
+Um projeto pode ser categorizada de duas maneiras:
+- SNAPSHOT
+- RELEASE
 Quando o projeto está em desenvolvimento geralmente usamos as dependências SNAPSHOT. O Maven detecta que essa ainda é uma versão em desenvolvimento, e por essa tag ele poderá buscar por novas versões das dependências em nosso projeto, enquanto ele ainda esteja em desenvolvimento.
 Quando o software está pronto para o lançamento, geralmente criamos uma versão RELEASE .
 Ex.:
@@ -226,6 +226,8 @@ Plugin utilizado para fazer o empacotamento de nossa aplicação em .jar. Com es
             </plugin>
         </plugins>
 ```
+Com esse plugin, quando gerarmos nosso .jar, (clean, install), serão gerados dois arquivos. Um jar é somente nosso programa, sem as dependências agrupadas junto a ele, e o outro, se a configuração do plugin for mantida como no exemplo, e o outro jar, que pode ser encontrada dentro da pasta /target dentro de nosso projeto, terá o sufixo jar-with-dependencies.jar. Esse jar contém todas a dependências empocatadas juntamente a nossa aplicação.
+
 [Maven Assembly Plugin](https://maven.apache.org/plugins/maven-assembly-plugin/usage.html)
 
 Instalação (Install)
@@ -417,9 +419,13 @@ Este é o nome completo da classe principal que desejamos executar. É composto 
 Referências:
 
 [Maven Complete Tutorial for Beginners](https://dev.to/saiupadhyayula/maven-complete-tutorial-for-beginners-1jek)
+
 [Maven Assembly Plugin](https://maven.apache.org/plugins/maven-assembly-plugin/usage.html)
+
 [Maven Repository](https://mvnrepository.com/)
+
 [Apache Commons Word Utils](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/text/WordUtils.html)
+
 [JUnit](https://junit.org/junit5/)
 
 
