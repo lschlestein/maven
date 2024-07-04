@@ -383,7 +383,8 @@ Para que nossa aplicação funcione com essa linha de comando, precisamos tornar
 ```
 Com a configuração acima, precisamos definir o class path, na linha de comando ao executar o .jar.
 
-Outra forma de rodar o jar
+Outra forma de rodar o jar:
+
 Para essa segunda opção, devemos utilizar a configuração do Maven Assembly Plugin como segue:
 ```xml
 <project>
@@ -418,6 +419,7 @@ Para essa segunda opção, devemos utilizar a configuração do Maven Assembly P
     [...]
 </project>
 ```
+Nessa configuração, apontamos a MainClass, não sendo necessário informar o Class Path no momento da execução do jar.
 
 Como executar uma aplicação maven Via terminal:
 
